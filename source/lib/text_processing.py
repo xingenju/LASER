@@ -165,6 +165,8 @@ def BPEfastApply(inp_fname, out_fname, bpe_codes,
                   .format(os.path.basename(inp_fname)))
         bpe_vocab = bpe_codes.replace('fcodes', 'fvocab')
         assert os.path.isfile(bpe_vocab), f'fastBPE: vocab file {bpe_vocab} not found'
+        if verbose:
+            logger.info(f"""run fastbpe cmd: {FASTBPE} + ' applybpe ' + {out_fname} + ' ' + {inp_fname} + ' ' + {bpe_codes} + ' ' + {bpe_vocab}""")
         run(FASTBPE + ' applybpe '
             + out_fname + ' ' + inp_fname
             + ' ' + bpe_codes

@@ -612,6 +612,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+    print(f"input file is {args.input}")
     embed_sentences(
         ifname=args.input,
         encoder_path=args.encoder,

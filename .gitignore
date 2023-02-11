@@ -1,4 +1,6 @@
 source/__pycache__
+source/.ipynb_checkpoints/
+source/.DS_Store
 source/lib/__pycache__
 models
 tools-external
