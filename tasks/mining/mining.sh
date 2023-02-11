@@ -1,11 +1,19 @@
+if [ -z ${LASER+x} ] ; then
+  echo "Please set the environment variable 'LASER'"
+  exit
+fi
+
 # encoder
 model_dir="${LASER}/models"
 encoder="${model_dir}/bilstm.93langs.2018-12-26.pt"
 bpe_codes="${model_dir}/93langs.fcodes"
 
-src_text="/corpus/LASER/tasks/mining/test/en.txt"
+source_folder="/corpus/source_text/tourbar"
+src_text=${source_folder}/en.txt
+tgt_text=${source_folder}/id.txt
+# src_text="/corpus/LASER/tasks/mining/test/en.txt.dup"
+# tgt_text="/corpus/LASER/tasks/mining/test/id.txt.dup"
 src_lang="en"
-tgt_text="/corpus/LASER/tasks/mining/test/id.txt"
 tgt_lang="id"
 
 
@@ -20,7 +28,9 @@ Embed () {
     --token-lang ${ll} \
     --bpe-codes ${bpe_codes} \
     --output ${enc} \
-    --verbose 
+    --verbose \
+    --buffer-size 20000 \
+    --max-tokens 30000
   fi
 }
 
@@ -33,8 +43,7 @@ Mine () {
   src_lang=$3
   tgt_lang=$4
   
-  cand="${bn}.candidates.tsv"
-  if [ ! -s ${cand} ] ; then
+  if [ ! -s ${src_text}.out ] ; then
     python3 ${LASER}/source/mine_bitexts.py \
        ${src_text} ${tgt_text} \
        --src-lang ${src_lang} --trg-lang ${tgt_lang} \
