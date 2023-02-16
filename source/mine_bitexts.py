@@ -295,6 +295,6 @@ if __name__ == '__main__':
                     seen_src.add(src_ind)
                     seen_trg.add(trg_ind)
                     if scores[i] > args.threshold:
-                        print(scores[i], src_sents[src_ind], trg_sents[trg_ind], sep='\t', file=fout)
+                        print(scores[i], src_sents[src_ind].strip(" \t"), trg_sents[trg_ind].strip(" \t"), sep='\001', file=fout)
 
     fout.close()
